@@ -15,6 +15,11 @@ const Items: React.FC = () => {
   const { search } = router.query;
 
   function mockedShallowSearch() {
+    /**
+     * shallow routing me permite modificar la url
+     * sin correr metodos data fetching de nuevo
+     * https://nextjs.org/docs/routing/shallow-routing
+     */
     router.push("/items?search=iphone", undefined, { shallow: true });
   }
 
