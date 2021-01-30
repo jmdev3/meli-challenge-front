@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import { observer } from "mobx-react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,4 +16,4 @@ const Item: React.FC = () => {
   return <Wrapper>Item: {itemId}</Wrapper>;
 };
 
-export default Item;
+export default observer(Item);
