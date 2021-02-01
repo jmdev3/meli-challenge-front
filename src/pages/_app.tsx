@@ -2,6 +2,7 @@ import React from "react";
 import { createGlobalStyle } from "styled-components";
 import { useLocalStore } from "mobx-react";
 
+import Header from "~/components/shared/Header";
 import api from "~/services/api";
 import { MainStore, MainStoreProvider } from "~/stores/mainStore";
 
@@ -37,6 +38,7 @@ function MyApp({ Component, pageProps }) {
     <React.Fragment>
       <GlobalStyles />
       <MainStoreProvider value={mainStore}>
+        <Header />
         <Component {...pageProps} />
       </MainStoreProvider>
     </React.Fragment>

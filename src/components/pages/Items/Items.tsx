@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 
 import { useMainStore } from "~/stores/mainStore";
-import Header from "./Header";
 
 const StyledMain = styled.main`
   background-color: #ebebeb;
@@ -24,7 +23,6 @@ const Items: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Header />
       <StyledMain>
         Items search: {search} - {store.items.length}
       </StyledMain>
