@@ -56,8 +56,6 @@ const ItemComponent: React.FC<IItemComponent> = (props) => {
     router.push(`/items/${item.id}`, undefined, { shallow: true });
   }
 
-  console.log(item.picture);
-
   return (
     <StyledLi onClick={handleItemClick}>
       <Image src={item.picture} alt="item-img" width={150} height={150} />
