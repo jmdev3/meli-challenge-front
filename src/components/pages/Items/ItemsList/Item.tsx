@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { observer } from "mobx-react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import { IItem } from "~/stores/mainStore";
 
@@ -30,11 +31,6 @@ const StyledLi = styled.li`
   cursor: pointer;
 `;
 
-const StyledImg = styled.img`
-  width: 150px;
-  height: 150px;
-`;
-
 const ItemDescription = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,9 +56,11 @@ const ItemComponent: React.FC<IItemComponent> = (props) => {
     router.push(`/items/${item.id}`, undefined, { shallow: true });
   }
 
+  console.log(item.picture);
+
   return (
     <StyledLi onClick={handleItemClick}>
-      <StyledImg src={item.picture} alt="item-img" />
+      <Image src={item.picture} alt="item-img" width={150} height={150} />
       <ItemDescription>
         <Price>
           {mapCurrency[item.price.currency]} {item.price.amount}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { AiOutlineSearch } from "react-icons/ai";
+import Image from "next/image";
 
 const Wrapper = styled.header`
   display: flex;
@@ -12,12 +13,9 @@ const Wrapper = styled.header`
   background-color: #fff159;
 `;
 
-const StyledImg = styled.img`
-  margin-right: 16px;
-`;
-
 const StyledForm = styled.form`
   position: relative;
+  margin-left: 16px;
 `;
 
 const Input = styled.input`
@@ -75,7 +73,7 @@ const Header: React.FC = () => {
 
   return (
     <Wrapper>
-      <StyledImg src="/logo.png" alt="logo" />
+      <Image src="/logo.png" alt="Logo" width={134} height={34} />
       <StyledForm onSubmit={handleSubmit}>
         <Input
           value={value}
