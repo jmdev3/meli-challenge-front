@@ -4,10 +4,14 @@ import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 
 import { useMainStore } from "~/stores/mainStore";
+import ItemsList from "./ItemsList";
 
 const StyledMain = styled.main`
-  background-color: #ebebeb;
+  display: flex;
+  justify-content: center;
   height: 100%;
+  background-color: #ebebeb;
+  padding-top: 16px;
 `;
 
 const Items: React.FC = () => {
@@ -24,7 +28,7 @@ const Items: React.FC = () => {
   return (
     <React.Fragment>
       <StyledMain>
-        Items search: {search} - {store.items.length}
+        {store.items.length > 0 && <ItemsList items={store.items} />}
       </StyledMain>
     </React.Fragment>
   );
