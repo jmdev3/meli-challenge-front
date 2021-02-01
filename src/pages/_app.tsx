@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }) {
     <React.Fragment>
       <GlobalStyles />
       <MainStoreProvider value={mainStore}>
-        <Header />
+        <Header categories={mainStore.categories} />
         <Component {...pageProps} />
       </MainStoreProvider>
     </React.Fragment>

@@ -29,6 +29,8 @@ export const MainStore = types
       const { api } = getEnv(self);
 
       try {
+        self.items.clear();
+        self.categories.clear();
         const response = yield api.searchItems({ search: queryString });
         applySnapshot(self.author, response.data.author);
         applySnapshot(self.categories, response.data.categories);

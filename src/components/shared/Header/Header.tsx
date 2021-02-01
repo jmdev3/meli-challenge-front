@@ -3,6 +3,13 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { AiOutlineSearch } from "react-icons/ai";
 import Image from "next/image";
+import { observer } from "mobx-react";
+
+import Breadcrumb from "./Breadcrumb";
+
+interface IHeader {
+  categories: string[];
+}
 
 const Wrapper = styled.header`
   display: flex;
@@ -43,7 +50,7 @@ const IconWrapper = styled.div`
   outline: none;
 `;
 
-const Header: React.FC = () => {
+const Header: React.FC<IHeader> = (props) => {
   const router = useRouter();
   const [value, setValue] = useState<string>("");
 
@@ -72,20 +79,25 @@ const Header: React.FC = () => {
   }
 
   return (
-    <Wrapper>
-      <Image src="/logo.png" alt="Logo" width={134} height={34} />
-      <StyledForm onSubmit={handleSubmit}>
-        <Input
-          value={value}
-          onChange={handleInputChange}
-          placeholder="Buscar productos, marcas y mas"
-        />
-        <IconWrapper as="button" type="submit">
-          <AiOutlineSearch size={24} color="#7e7e7e" />
-        </IconWrapper>
-      </StyledForm>
-    </Wrapper>
+    <React.Fragment>
+      <Wrapper>
+        <Image src="/logo.png" alt="Logo" width={134} height={34} />
+        <StyledForm onSubmit={handleSubmit}>
+          <Input
+            value={value}
+            onChange={handleInputChange}
+            placeholder="Buscar productos, marcas y mas"
+          />
+          <IconWrapper as="button" type="submit">
+            <AiOutlineSearch size={24} color="#7e7e7e" />
+          </IconWrapper>
+        </StyledForm>
+      </Wrapper>
+      {props.categories.length > 0 && (
+        <Breadcrumb categories={props.categories} />
+      )}
+    </React.Fragment>
   );
 };
 
-export default Header;
+export default observer(Header);
