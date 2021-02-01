@@ -10,18 +10,15 @@ interface IStyledLi {
   first: boolean;
 }
 
-const Wrapper = styled.div`
+const InnerWrapper = styled.div`
   display: flex;
   justify-content: center;
   background-color: #ebebeb;
-`;
-
-const InnerWrapper = styled.div`
-  width: 762px;
-  margin-top: 16px;
+  padding-top: 16px;
 `;
 
 const StyledUl = styled.ul`
+  width: 762px;
   display: flex;
   list-style-type: none;
   margin: 0;
@@ -44,19 +41,17 @@ const StyledLi = styled.li<IStyledLi>`
 
 const Breadcrumb: React.FC<IBreadcrumb> = (props) => {
   return (
-    <Wrapper>
-      <InnerWrapper>
-        <StyledUl>
-          {props.categories.map((categorie, index) => {
-            return (
-              <StyledLi key={index} first={index !== 0}>
-                {categorie}
-              </StyledLi>
-            );
-          })}
-        </StyledUl>
-      </InnerWrapper>
-    </Wrapper>
+    <InnerWrapper>
+      <StyledUl>
+        {props.categories.map((categorie, index) => {
+          return (
+            <StyledLi key={index} first={index !== 0}>
+              {categorie}
+            </StyledLi>
+          );
+        })}
+      </StyledUl>
+    </InnerWrapper>
   );
 };
 
