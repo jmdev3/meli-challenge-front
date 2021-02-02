@@ -1,20 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import Image from "next/image";
 
 import { useMainStore } from "~/stores/mainStore";
-
-const mapCurrency = {
-  USD: "U$D",
-  ARS: "$",
-};
-
-const mapCondition = {
-  new: "Nuevo",
-  used: "Usado",
-};
+import { IItem } from "./Item.types";
+import { mapCurrency, mapCondition } from "~/utils";
 
 const Wrapper = styled.div`
   width: 750px;
@@ -74,42 +65,38 @@ const StyledP = styled.p`
   color: rgba(0, 0, 0, 0.8);
 `;
 
-const Item: React.FC = () => {
-  const router = useRouter();
-  const { itemId } = router.query;
+const Item: React.FC<IItem> = (props) => {
   const store = useMainStore();
-  const selectedItem = store.selectedItem;
+  const item = props.item;
 
   useEffect(() => {
-    if (itemId) {
-      store.getItemDetails(itemId as string);
+    if (store.categories.length === 0) {
+      store.setCategories(props.categories);
     }
-  }, [itemId]);
+    if (store.author.name === "") {
+      store.setAuthor(props.author);
+    }
+  }, []);
 
   return (
     <React.Fragment>
-      {selectedItem && (
+      {item && (
         <Wrapper>
           <ImageInfoWrapper>
-            <Image
-              src={selectedItem.picture}
-              alt="item-img"
-              width={450}
-              height={450}
-            />
+            <Image src={item.picture} alt="item-img" width={450} height={450} />
             <ItemInfo>
-              <Condition>{mapCondition[selectedItem.condition]}</Condition>
-              <h4>{selectedItem.title}</h4>
+              <Condition>{mapCondition[item.condition]}</Condition>
+              <h4>{item.title}</h4>
               <Price>
-                {mapCurrency[selectedItem.price.currency]}&nbsp;
-                {selectedItem.price.amount.toLocaleString("de-DE")}
+                {mapCurrency[item.price.currency]}&nbsp;
+                {item.price.amount.toLocaleString("de-DE")}
               </Price>
               <Button>comprar</Button>
             </ItemInfo>
           </ImageInfoWrapper>
           <Description>
             <h2>Descripción del producto</h2>
-            <StyledP>{selectedItem.description}</StyledP>
+            <StyledP>{item.description}</StyledP>
           </Description>
         </Wrapper>
       )}

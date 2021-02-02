@@ -2,12 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { observer } from "mobx-react";
 
-import { IItem } from "~/stores/mainStore";
+import { IItemsList } from "./ItemsList.types";
 import Item from "./Item";
-
-interface IItemsList {
-  items: IItem[];
-}
 
 const StyledUl = styled.ul`
   background-color: #ffff;

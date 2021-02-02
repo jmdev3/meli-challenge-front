@@ -25,13 +25,6 @@ export const MainStore = types
     items: types.array(Item),
     categories: types.array(types.string),
   })
-  .views((self) => {
-    return {
-      get selectedItem() {
-        return self.items.length > 0 ? self.items[0] : null;
-      },
-    };
-  })
   .actions((self) => {
     const searchItems = flow(function* (queryString: string) {
       const { api } = getEnv(self);
@@ -49,30 +42,24 @@ export const MainStore = types
       }
     });
 
-    const getItemDetails = flow(function* (itemId: string) {
-      const { api } = getEnv(self);
-
-      try {
-        self.items.clear();
-        const response = yield api.getItem(itemId);
-        applySnapshot(self.author, response.data.author);
-        applySnapshot(self.categories, response.data.categories);
-        applySnapshot(self.items, [response.data.item]);
-      } catch (error) {
-        alert("Hubo un error el buscar los detalles del producto!");
-        console.log("> getItemDetails error: ", error);
-      }
-    });
-
     function clearStore() {
       self.items.clear();
       self.categories.clear();
     }
 
+    function setCategories(categories: string[]) {
+      self.categories.replace(categories);
+    }
+
+    function setAuthor(author: { name: string; lastname: string }) {
+      self.author = author;
+    }
+
     return {
       searchItems,
-      getItemDetails,
       clearStore,
+      setCategories,
+      setAuthor,
     };
   });
 

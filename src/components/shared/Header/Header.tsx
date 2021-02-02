@@ -6,11 +6,7 @@ import Image from "next/image";
 import { observer } from "mobx-react";
 
 import Breadcrumb from "./Breadcrumb";
-
-interface IHeader {
-  categories: string[];
-  clearStore: () => void;
-}
+import { IHeader } from "./Header.types";
 
 const Wrapper = styled.header`
   display: flex;
@@ -86,7 +82,7 @@ const Header: React.FC<IHeader> = (props) => {
   function handleLogoClick() {
     props.clearStore();
     setValue("");
-    router.push(`/items`, undefined, { shallow: true });
+    router.push("/", undefined, { shallow: true });
   }
 
   return (

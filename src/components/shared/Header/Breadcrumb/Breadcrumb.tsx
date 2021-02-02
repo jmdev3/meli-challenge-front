@@ -2,13 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { observer } from "mobx-react";
 
-interface IBreadcrumb {
-  categories: string[];
-}
-
-interface IStyledLi {
-  first: boolean;
-}
+import { IBreadcrumb, IStyledLi } from "./Breadcrumb.types";
 
 const InnerWrapper = styled.div`
   display: flex;

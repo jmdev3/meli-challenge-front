@@ -5,21 +5,8 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-import { IItem } from "~/stores/mainStore";
-
-interface IItemComponent {
-  item: IItem;
-}
-
-const mapCurrency = {
-  USD: "U$D",
-  ARS: "$",
-};
-
-const mapCondition = {
-  new: "Nuevo",
-  used: "Usado",
-};
+import { IItemComponent } from "./Item.types";
+import { mapCurrency, mapCondition } from "~/utils";
 
 const StyledLi = styled.li`
   display: flex;
