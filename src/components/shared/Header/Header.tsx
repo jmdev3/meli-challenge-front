@@ -9,6 +9,7 @@ import Breadcrumb from "./Breadcrumb";
 
 interface IHeader {
   categories: string[];
+  clearStore: () => void;
 }
 
 const Wrapper = styled.header`
@@ -50,6 +51,10 @@ const IconWrapper = styled.div`
   outline: none;
 `;
 
+const LogoWrapper = styled.div`
+  cursor: pointer;
+`;
+
 const Header: React.FC<IHeader> = (props) => {
   const router = useRouter();
   const [value, setValue] = useState<string>("");
@@ -78,10 +83,18 @@ const Header: React.FC<IHeader> = (props) => {
     setValue(e.target.value);
   }
 
+  function handleLogoClick() {
+    props.clearStore();
+    setValue("");
+    router.push(`/items`, undefined, { shallow: true });
+  }
+
   return (
     <React.Fragment>
       <Wrapper>
-        <Image src="/logo.png" alt="Logo" width={134} height={34} />
+        <LogoWrapper onClick={handleLogoClick}>
+          <Image src="/logo.png" alt="Logo" width={134} height={34} />
+        </LogoWrapper>
         <StyledForm onSubmit={handleSubmit}>
           <Input
             value={value}

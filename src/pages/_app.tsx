@@ -49,7 +49,10 @@ function MyApp({ Component, pageProps }) {
     <React.Fragment>
       <GlobalStyles />
       <MainStoreProvider value={mainStore}>
-        <Header categories={mainStore.categories} />
+        <Header
+          categories={mainStore.categories}
+          clearStore={mainStore.clearStore}
+        />
         <StyledMain>
           <Component {...pageProps} />
         </StyledMain>

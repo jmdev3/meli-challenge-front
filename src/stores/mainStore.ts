@@ -64,9 +64,15 @@ export const MainStore = types
       }
     });
 
+    function clearStore() {
+      self.items.clear();
+      self.categories.clear();
+    }
+
     return {
       searchItems,
       getItemDetails,
+      clearStore,
     };
   });
 
