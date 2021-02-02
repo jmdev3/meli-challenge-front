@@ -28,6 +28,7 @@ const StyledMain = styled.main`
     height: 100%;
     background-color: #ebebeb;
     padding-top: 16px;
+    font-family: serif;
   }
 `;
 

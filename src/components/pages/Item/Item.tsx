@@ -28,7 +28,51 @@ const ImageInfoWrapper = styled.div`
   justify-content: center;
 `;
 
-const ItemInfo = styled.div``;
+const ItemInfo = styled.div`
+  width: 250px;
+  margin-top: 24px;
+  margin-left: 24px;
+
+  & > p,
+  & > h1,
+  & > h4 {
+    margin: 4px 0;
+  }
+`;
+
+const Condition = styled.p`
+  font-size: 14px;
+`;
+
+const Price = styled.h1`
+  font-weight: 300;
+`;
+
+const Button = styled.button`
+  height: 40px;
+  width: 100%;
+  margin-top: 16px;
+  background-color: #3483fa;
+  cursor: pointer;
+  border-radius: 6px;
+  border-color: transparent;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 24px;
+  text-align: center;
+  text-transform: capitalize;
+`;
+
+const Description = styled.div`
+  width: 550px;
+  margin-left: 24px;
+`;
+
+const StyledP = styled.p`
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+`;
 
 const Item: React.FC = () => {
   const router = useRouter();
@@ -50,20 +94,23 @@ const Item: React.FC = () => {
             <Image
               src={selectedItem.picture}
               alt="item-img"
-              width={500}
-              height={500}
+              width={450}
+              height={450}
             />
             <ItemInfo>
-              <p>{mapCondition[selectedItem.condition]}</p>
-              <p>{selectedItem.title}</p>
-              <p>
+              <Condition>{mapCondition[selectedItem.condition]}</Condition>
+              <h4>{selectedItem.title}</h4>
+              <Price>
                 {mapCurrency[selectedItem.price.currency]}&nbsp;
                 {selectedItem.price.amount}
-              </p>
+              </Price>
+              <Button>comprar</Button>
             </ItemInfo>
           </ImageInfoWrapper>
-          <h2>Descripción del producto</h2>
-          <p>{selectedItem.description}</p>
+          <Description>
+            <h2>Descripción del producto</h2>
+            <StyledP>{selectedItem.description}</StyledP>
+          </Description>
         </Wrapper>
       )}
     </React.Fragment>
