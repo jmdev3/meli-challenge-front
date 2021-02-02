@@ -1,5 +1,5 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { useLocalStore } from "mobx-react";
 
 import Header from "~/components/shared/Header";
@@ -21,6 +21,14 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+const StyledMain = styled.main`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  background-color: #ebebeb;
+  padding-top: 16px;
+`;
+
 function MyApp({ Component, pageProps }) {
   const mainStore = useLocalStore(() =>
     MainStore.create(
@@ -39,7 +47,9 @@ function MyApp({ Component, pageProps }) {
       <GlobalStyles />
       <MainStoreProvider value={mainStore}>
         <Header categories={mainStore.categories} />
-        <Component {...pageProps} />
+        <StyledMain>
+          <Component {...pageProps} />
+        </StyledMain>
       </MainStoreProvider>
     </React.Fragment>
   );

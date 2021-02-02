@@ -13,6 +13,7 @@ const Item = types.model("Item", {
   condition: "",
   free_shipping: types.boolean,
   sold_quantity: types.maybe(types.number),
+  description: "",
 });
 
 export const MainStore = types
@@ -23,6 +24,13 @@ export const MainStore = types
     }),
     items: types.array(Item),
     categories: types.array(types.string),
+  })
+  .views((self) => {
+    return {
+      get selectedItem() {
+        return self.items.length > 0 ? self.items[0] : null;
+      },
+    };
   })
   .actions((self) => {
     const searchItems = flow(function* (queryString: string) {
@@ -36,12 +44,29 @@ export const MainStore = types
         applySnapshot(self.categories, response.data.categories);
         applySnapshot(self.items, response.data.items);
       } catch (error) {
-        console.log("error: ", error);
+        alert("Hubo un error el buscar los productos!");
+        console.log("> searchItems error: ", error);
+      }
+    });
+
+    const getItemDetails = flow(function* (itemId: string) {
+      const { api } = getEnv(self);
+
+      try {
+        self.items.clear();
+        const response = yield api.getItem(itemId);
+        applySnapshot(self.author, response.data.author);
+        applySnapshot(self.categories, response.data.categories);
+        applySnapshot(self.items, [response.data.item]);
+      } catch (error) {
+        alert("Hubo un error el buscar los detalles del producto!");
+        console.log("> getItemDetails error: ", error);
       }
     });
 
     return {
       searchItems,
+      getItemDetails,
     };
   });
 
