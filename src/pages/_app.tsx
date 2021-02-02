@@ -22,11 +22,13 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const StyledMain = styled.main`
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  background-color: #ebebeb;
-  padding-top: 16px;
+  && {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-color: #ebebeb;
+    padding-top: 16px;
+  }
 `;
 
 function MyApp({ Component, pageProps }) {
