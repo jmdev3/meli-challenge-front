@@ -102,7 +102,7 @@ const Item: React.FC = () => {
               <h4>{selectedItem.title}</h4>
               <Price>
                 {mapCurrency[selectedItem.price.currency]}&nbsp;
-                {selectedItem.price.amount}
+                {selectedItem.price.amount.toLocaleString("de-DE")}
               </Price>
               <Button>comprar</Button>
             </ItemInfo>

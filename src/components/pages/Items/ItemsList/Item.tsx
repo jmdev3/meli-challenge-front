@@ -61,7 +61,8 @@ const ItemComponent: React.FC<IItemComponent> = (props) => {
       <Image src={item.picture} alt="item-img" width={150} height={150} />
       <ItemDescription>
         <Price>
-          {mapCurrency[item.price.currency]} {item.price.amount}
+          {mapCurrency[item.price.currency]}{" "}
+          {item.price.amount.toLocaleString("de-DE")}
           {item.free_shipping && <StyledIcon size={24} color="#4CAF50" />}
         </Price>
         {item.title} <br />
