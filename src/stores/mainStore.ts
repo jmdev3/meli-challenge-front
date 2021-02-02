@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { types, Instance, flow, getEnv, applySnapshot } from "mobx-state-tree";
+import { types, Instance, applySnapshot } from "mobx-state-tree";
 
 const Item = types.model("Item", {
   id: "",
@@ -26,25 +26,13 @@ export const MainStore = types
     categories: types.array(types.string),
   })
   .actions((self) => {
-    const searchItems = flow(function* (queryString: string) {
-      const { api } = getEnv(self);
-
-      try {
-        self.items.clear();
-        self.categories.clear();
-        const response = yield api.searchItems({ search: queryString });
-        applySnapshot(self.author, response.data.author);
-        applySnapshot(self.categories, response.data.categories);
-        applySnapshot(self.items, response.data.items);
-      } catch (error) {
-        alert("Hubo un error el buscar los productos!");
-        console.log("> searchItems error: ", error);
-      }
-    });
-
     function clearStore() {
       self.items.clear();
       self.categories.clear();
+    }
+
+    function setItems(items: any) {
+      applySnapshot(self.items, items);
     }
 
     function setCategories(categories: string[]) {
@@ -56,8 +44,8 @@ export const MainStore = types
     }
 
     return {
-      searchItems,
       clearStore,
+      setItems,
       setCategories,
       setAuthor,
     };

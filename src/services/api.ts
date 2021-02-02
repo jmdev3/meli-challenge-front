@@ -11,16 +11,22 @@ class Api {
     this.meliApi = _meliApi;
   }
 
-  searchItems(params: any) {
-    return this.meliApi.get("/items", { params }).catch((error) => {
-      throw error;
-    });
+  searchItems(url: string) {
+    return this.meliApi
+      .get(url)
+      .then((res) => res.data)
+      .catch((error) => {
+        throw error;
+      });
   }
 
   getItem(itemId: string) {
-    return this.meliApi.get(`/items/${itemId}`).catch((error) => {
-      throw error;
-    });
+    return this.meliApi
+      .get(`/items/${itemId}`)
+      .then((res) => res.data)
+      .catch((error) => {
+        throw error;
+      });
   }
 }
 

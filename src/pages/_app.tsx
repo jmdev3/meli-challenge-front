@@ -3,7 +3,6 @@ import styled, { createGlobalStyle } from "styled-components";
 import { useLocalStore } from "mobx-react";
 
 import Header from "~/components/shared/Header";
-import api from "~/services/api";
 import { MainStore, MainStoreProvider } from "~/stores/mainStore";
 
 const GlobalStyles = createGlobalStyle`
@@ -34,15 +33,12 @@ const StyledMain = styled.main`
 
 function MyApp({ Component, pageProps }) {
   const mainStore = useLocalStore(() =>
-    MainStore.create(
-      {
-        author: {
-          name: "",
-          lastname: "",
-        },
+    MainStore.create({
+      author: {
+        name: "",
+        lastname: "",
       },
-      { api }
-    )
+    })
   );
 
   return (
