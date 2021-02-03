@@ -75,7 +75,7 @@ const Item: React.FC<IItem> = (props) => {
   const store = useMainStore();
   const fetcher = () => Api.getItem(props.data.item.id);
   const { data } = useSWR(null, fetcher, { initialData: props.data as any });
-  const item = data.item;
+  const item = data ? data.item : null;
 
   useEffect(() => {
     if (!isEmpty(data)) {

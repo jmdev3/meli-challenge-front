@@ -72,7 +72,10 @@ const Header: React.FC<IHeader> = (props) => {
      * sin correr metodos data fetching de nuevo
      * https://nextjs.org/docs/routing/shallow-routing
      */
-    router.push(`/items?search=${value}`, undefined, { shallow: true });
+    if (value) {
+      props.clearStore();
+      router.push(`/items?search=${value}`, undefined, { shallow: true });
+    }
   }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
