@@ -13,6 +13,7 @@ const StyledUl = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 8px;
+  border-radius: 4px;
 `;
 
 const ItemsList: React.FC<IItemsList> = (props) => {

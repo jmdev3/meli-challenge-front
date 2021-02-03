@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   height: fit-content;
   background-color: #fff;
   padding: 8px;
+  border-radius: 4px;
 `;
 
 const ImageInfoWrapper = styled.div`

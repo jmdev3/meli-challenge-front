@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   width: 750px;
   padding: 24px 8px;
   background-color: #fff;
+  border-radius: 4px;
 `;
 
 const Items: React.FC<IItems> = (props) => {
