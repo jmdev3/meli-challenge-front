@@ -4,6 +4,7 @@ import { useLocalStore } from "mobx-react";
 
 import Header from "~/components/shared/Header";
 import { MainStore, MainStoreProvider } from "~/stores/mainStore";
+import ErrorBoundary from "~/components/shared/ErrorBoundary";
 
 const GlobalStyles = createGlobalStyle`
   html {
@@ -48,15 +49,17 @@ function MyApp({ Component, pageProps }) {
   return (
     <React.Fragment>
       <GlobalStyles />
-      <MainStoreProvider value={mainStore}>
-        <Header
-          categories={mainStore.categories}
-          clearStore={mainStore.clearStore}
-        />
-        <StyledMain>
-          <Component {...pageProps} />
-        </StyledMain>
-      </MainStoreProvider>
+      <ErrorBoundary>
+        <MainStoreProvider value={mainStore}>
+          <Header
+            categories={mainStore.categories}
+            clearStore={mainStore.clearStore}
+          />
+          <StyledMain>
+            <Component {...pageProps} />
+          </StyledMain>
+        </MainStoreProvider>
+      </ErrorBoundary>
     </React.Fragment>
   );
 }
