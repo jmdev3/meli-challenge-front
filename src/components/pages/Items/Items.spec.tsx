@@ -36,7 +36,7 @@ describe("<Items />", () => {
   it("should render Item in loading state", () => {
     render(<Items isValidating={true} hasFoundItems={false} items={[]} />);
 
-    expect(screen.getByText("Buscando...")).not.toBeNull();
+    expect(screen.getByTestId("skeleton-wrapper")).not.toBeNull();
   });
 
   it("should render Item in with not found state", () => {

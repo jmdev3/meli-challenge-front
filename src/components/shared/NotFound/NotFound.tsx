@@ -6,7 +6,7 @@ interface INotFound {
   text: string;
 }
 
-const Wrapper = styled.div`
+const NotFoundWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,9 +15,6 @@ const Wrapper = styled.div`
   padding: 24px 8px;
   background-color: #fff;
   border-radius: 4px;
-`;
-
-const NotFoundWrapper = styled(Wrapper)`
   justify-content: space-around;
   padding: 50px 8px;
 `;
