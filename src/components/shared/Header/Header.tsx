@@ -88,10 +88,10 @@ const Header: React.FC<IHeader> = (props) => {
   return (
     <React.Fragment>
       <Wrapper>
-        <LogoWrapper onClick={handleLogoClick}>
+        <LogoWrapper onClick={handleLogoClick} data-testid="logo-wrapper">
           <Image src="/logo.png" alt="Logo" width={134} height={34} />
         </LogoWrapper>
-        <StyledForm onSubmit={handleSubmit}>
+        <StyledForm onSubmit={handleSubmit} role="form">
           <Input
             value={value}
             onChange={handleInputChange}
