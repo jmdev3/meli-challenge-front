@@ -50,7 +50,11 @@ const ItemComponent: React.FC<IItemComponent> = (props) => {
         <Price>
           {mapCurrency[item.price.currency]}{" "}
           {item.price.amount.toLocaleString("de-DE")}
-          {item.free_shipping && <StyledIcon size={24} color="#4CAF50" />}
+          {item.free_shipping && (
+            <div data-testid="free-shipping">
+              <StyledIcon size={24} color="#4CAF50" />
+            </div>
+          )}
         </Price>
         {item.title} <br />
         {mapCondition[item.condition]}
