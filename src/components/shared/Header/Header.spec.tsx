@@ -40,6 +40,7 @@ describe("<Item />", () => {
   });
 
   it("should call router push on submit", () => {
+    clearStore.mockClear();
     render(<Header categories={mockedCategories} clearStore={clearStore} />);
 
     const input = screen.getByDisplayValue("lenovo");
@@ -51,5 +52,6 @@ describe("<Item />", () => {
 
     // TODO: chequear porque no hace el assertion
     // expect(router.push).toHaveBeenCalledTimes(1);
+    expect(clearStore).toHaveBeenCalledTimes(1);
   });
 });

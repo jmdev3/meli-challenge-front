@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { observer } from "mobx-react";
 import Image from "next/image";
-import useSWR from "swr";
-import { isEmpty } from "lodash";
 
-import Api from "~/services/api";
-import { useMainStore } from "~/stores/mainStore";
 import { IItem } from "./Item.types";
 import { mapCurrency, mapCondition } from "~/utils";
 
@@ -68,25 +64,8 @@ const StyledP = styled.p`
   color: rgba(0, 0, 0, 0.8);
 `;
 
-/**
- * https://github.com/vercel/swr#ssr-with-nextjs
- */
 const Item: React.FC<IItem> = (props) => {
-  const store = useMainStore();
-  const fetcher = () => Api.getItem(props.data.item.id);
-  const { data } = useSWR(null, fetcher, { initialData: props.data as any });
-  const item = data ? data.item : null;
-
-  useEffect(() => {
-    if (!isEmpty(data)) {
-      if (store.categories.length === 0) {
-        store.setCategories(data.categories);
-      }
-      if (store.author.name === "") {
-        store.setAuthor(data.author);
-      }
-    }
-  }, []);
+  const item = props.item;
 
   return (
     <React.Fragment>
