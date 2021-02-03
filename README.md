@@ -1,4 +1,4 @@
-## LEVANTAR SERVER
+## LEVANTAR APP
 
 > npm install
 
