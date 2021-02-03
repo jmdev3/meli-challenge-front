@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import { AiOutlineSearch } from "react-icons/ai";
 import Image from "next/image";
 import { observer } from "mobx-react";
@@ -52,29 +51,18 @@ const LogoWrapper = styled.div`
 `;
 
 const Header: React.FC<IHeader> = (props) => {
-  const router = useRouter();
-  const [value, setValue] = useState<string>("");
-
-  /**
-   * Hooks para sincronizar input value
-   */
-  useEffect(() => {
-    const { search } = router.query;
-    if (search && search !== value) {
-      setValue(search as string);
-    }
-  }, [router.query]);
+  const value = props.value;
+  const setValue = props.setValue;
+  const navigate = props.navigate;
+  const categories = props.categories;
+  const clearStore = props.clearStore;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    /**
-     * shallow routing me permite modificar la url
-     * sin correr metodos data fetching de nuevo
-     * https://nextjs.org/docs/routing/shallow-routing
-     */
+
     if (value) {
-      props.clearStore();
-      router.push(`/items?search=${value}`, undefined, { shallow: true });
+      clearStore();
+      navigate(`/items?search=${value}`);
     }
   }
 
@@ -83,9 +71,9 @@ const Header: React.FC<IHeader> = (props) => {
   }
 
   function handleLogoClick() {
-    props.clearStore();
+    clearStore();
     setValue("");
-    router.push("/", undefined, { shallow: true });
+    navigate("/");
   }
 
   return (
@@ -105,9 +93,7 @@ const Header: React.FC<IHeader> = (props) => {
           </IconWrapper>
         </StyledForm>
       </Wrapper>
-      {props.categories.length > 0 && (
-        <Breadcrumb categories={props.categories} />
-      )}
+      {categories.length > 0 && <Breadcrumb categories={categories} />}
     </React.Fragment>
   );
 };

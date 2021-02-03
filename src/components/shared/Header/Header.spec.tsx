@@ -1,24 +1,22 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-// import { useRouter } from "next/router";
 
 import Header from "./Header";
-
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    query: {
-      search: "lenovo",
-    },
-  }),
-}));
 
 describe("<Item />", () => {
   const mockedCategories = ["Computación", "Laptops y Accesorios"];
   const clearStore = jest.fn();
+  const setValue = jest.fn();
+  const navigate = jest.fn();
 
   it("should render Header as expected", () => {
     const { container } = render(
-      <Header categories={mockedCategories} clearStore={clearStore} />
+      <Header
+        categories={mockedCategories}
+        clearStore={clearStore}
+        value="lenovo"
+        setValue={setValue}
+        navigate={navigate}
+      />
     );
 
     expect(screen.getByTestId("logo-wrapper")).not.toBeNull();
@@ -30,28 +28,48 @@ describe("<Item />", () => {
     );
   });
 
-  it("should call clearStore on logo click", () => {
-    render(<Header categories={mockedCategories} clearStore={clearStore} />);
+  it("should call the expected functions on logo click", () => {
+    render(
+      <Header
+        categories={mockedCategories}
+        clearStore={clearStore}
+        value="lenovo"
+        setValue={setValue}
+        navigate={navigate}
+      />
+    );
 
     const logo = screen.getByTestId("logo-wrapper");
     fireEvent.click(logo);
 
+    expect(setValue).toHaveBeenCalledWith("");
     expect(clearStore).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith("/");
   });
 
-  it("should call router push on submit", () => {
+  it("should call the expected functions on submit", () => {
     clearStore.mockClear();
-    render(<Header categories={mockedCategories} clearStore={clearStore} />);
+    setValue.mockClear();
+    navigate.mockClear();
+
+    render(
+      <Header
+        categories={mockedCategories}
+        clearStore={clearStore}
+        value="lenovo"
+        setValue={setValue}
+        navigate={navigate}
+      />
+    );
 
     const input = screen.getByDisplayValue("lenovo");
     const form = screen.getByRole("form");
 
     fireEvent.change(input, { target: { value: "audi" } });
     fireEvent.submit(form);
-    // const router = useRouter();
 
-    // TODO: chequear porque no hace el assertion
-    // expect(router.push).toHaveBeenCalledTimes(1);
+    expect(setValue).toHaveBeenCalledWith("audi");
     expect(clearStore).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledTimes(1);
   });
 });
