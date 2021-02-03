@@ -10,14 +10,3 @@ Object {
   "items": Array [],
 }
 `;
-
-exports[`MainStore store actions should clearStore as expected 1`] = `
-Object {
-  "author": Object {
-    "lastname": "Villarraza",
-    "name": "Juan Manuel",
-  },
-  "categories": Array [],
-  "items": Array [],
-}
-`;
