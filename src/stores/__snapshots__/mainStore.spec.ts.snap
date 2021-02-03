@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainStore should init store as expected 1`] = `
+Object {
+  "author": Object {
+    "lastname": "",
+    "name": "",
+  },
+  "categories": Array [],
+  "items": Array [],
+}
+`;
+
+exports[`MainStore store actions should clearStore as expected 1`] = `
+Object {
+  "author": Object {
+    "lastname": "Villarraza",
+    "name": "Juan Manuel",
+  },
+  "categories": Array [],
+  "items": Array [],
+}
+`;
