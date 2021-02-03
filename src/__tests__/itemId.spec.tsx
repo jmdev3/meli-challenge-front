@@ -1,4 +1,4 @@
-import { getServerSideProps } from "./index";
+import { getServerSideProps } from "../pages/items/[itemId]/index";
 
 jest.mock("~/services/api", () => ({
   getItem: jest.fn().mockReturnValue({
