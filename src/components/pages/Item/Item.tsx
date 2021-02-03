@@ -95,7 +95,10 @@ const Item: React.FC<IItem> = (props) => {
           <ImageInfoWrapper>
             <Image src={item.picture} alt="item-img" width={450} height={450} />
             <ItemInfo>
-              <Condition>{mapCondition[item.condition]}</Condition>
+              <Condition>
+                {mapCondition[item.condition]}
+                {item.sold_quantity > 0 && ` - ${item.sold_quantity} vendidos`}
+              </Condition>
               <h4>{item.title}</h4>
               <Price>
                 {mapCurrency[item.price.currency]}&nbsp;

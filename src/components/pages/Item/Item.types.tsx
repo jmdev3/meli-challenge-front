@@ -12,6 +12,7 @@ export interface IItem {
       condition: string;
       free_shipping: boolean;
       description: string;
+      sold_quantity: number;
     };
     categories: string[];
     author: {

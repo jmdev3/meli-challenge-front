@@ -15,6 +15,7 @@ const mockedItem = {
   condition: "new",
   free_shipping: false,
   description: "item-description",
+  sold_quantity: 200,
 };
 
 const mockedCategories = ["Computación", "Laptops y Accesorios"];
@@ -56,7 +57,8 @@ describe("<Item />", () => {
     renderWithStore(store);
 
     expect(screen.getByAltText("item-img")).not.toBeNull();
-    expect(screen.getByText("Nuevo")).not.toBeNull();
+    expect(screen.queryAllByText("Nuevo")).not.toBeNull();
+    expect(screen.queryAllByText(" - 200 vendidos")).not.toBeNull();
     expect(screen.getByText("lenovo")).not.toBeNull();
     expect(screen.getByText("$ 1,000")).not.toBeNull();
     expect(screen.getByText("comprar")).not.toBeNull();
