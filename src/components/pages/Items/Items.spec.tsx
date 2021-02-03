@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { IItem } from "~/stores/mainStore";
 
 import Items from "./Items";
 
@@ -15,51 +16,34 @@ const mockedItem = {
   free_shipping: true,
 };
 
-const mockedCategories = ["Computación", "Laptops y Accesorios"];
-
-const mockedAuthor = {
-  name: "Juan Manuel",
-  lastname: "Villarraza",
-};
-
-jest.mock("swr", () => () => ({
-  data: {
-    items: [mockedItem],
-    categories: mockedCategories,
-    author: mockedAuthor,
-  },
-}));
-
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    query: {
-      search: "lenovo",
-    },
-  }),
-}));
-
-jest.mock("~/stores/mainStore", () => ({
-  useMainStore: () => ({
-    items: [mockedItem],
-    author: {
-      name: "",
-      lastname: "",
-    },
-    categories: [],
-    setItems: jest.fn(),
-    setAuthor: jest.fn(),
-    setCategories: jest.fn(),
-  }),
-}));
-
 describe("<Items />", () => {
   it("should render Item page as expected", () => {
-    render(<Items />);
+    render(
+      <Items
+        isValidating={false}
+        hasFoundItems={false}
+        items={[mockedItem as IItem]}
+      />
+    );
 
     expect(screen.getByAltText("item-img")).not.toBeNull();
     expect(screen.getByText("$ 1,000")).not.toBeNull();
     expect(screen.getByTestId("free-shipping")).not.toBeNull();
     expect(screen.queryAllByText("Nuevo")).not.toBeNull();
     expect(screen.queryAllByText("lenovo")).not.toBeNull();
+  });
+
+  it("should render Item in loading state", () => {
+    render(<Items isValidating={true} hasFoundItems={false} items={[]} />);
+
+    expect(screen.getByText("Buscando...")).not.toBeNull();
+  });
+
+  it("should render Item in with not found state", () => {
+    render(<Items isValidating={false} hasFoundItems={true} items={[]} />);
+
+    expect(
+      screen.getByText("No hay publicaciones que coincidan con tu búsqueda.")
+    ).not.toBeNull();
   });
 });
