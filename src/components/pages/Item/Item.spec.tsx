@@ -32,8 +32,10 @@ describe("<Item />", () => {
   });
 
   it("should render empty view when item is not provided", () => {
-    const { container } = render(<Item item={null} />);
+    render(<Item item={null} />);
 
-    expect(container).toBeEmptyDOMElement();
+    expect(
+      screen.getByText("No se encontro el producto que está buscando.")
+    ).not.toBeNull();
   });
 });

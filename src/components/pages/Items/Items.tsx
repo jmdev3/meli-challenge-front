@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 
 import ItemsList from "./ItemsList";
 import { IItems } from "./Items.types";
+import NotFound from "~/components/shared/NotFound";
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,9 +28,7 @@ const Items: React.FC<IItems> = (props) => {
 
   if (hasFoundItems) {
     return (
-      <Wrapper>
-        <h3>No hay publicaciones que coincidan con tu búsqueda.</h3>
-      </Wrapper>
+      <NotFound text="No hay publicaciones que coincidan con tu búsqueda." />
     );
   }
 

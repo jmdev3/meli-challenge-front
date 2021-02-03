@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { IItem } from "./Item.types";
 import { mapCurrency, mapCondition } from "~/utils";
+import NotFound from "~/components/shared/NotFound";
 
 const Wrapper = styled.div`
   width: 750px;
@@ -70,7 +71,7 @@ const Item: React.FC<IItem> = (props) => {
 
   return (
     <React.Fragment>
-      {item && (
+      {item ? (
         <Wrapper>
           <ImageInfoWrapper>
             <Image src={item.picture} alt="item-img" width={450} height={450} />
@@ -92,6 +93,8 @@ const Item: React.FC<IItem> = (props) => {
             <StyledP>{item.description}</StyledP>
           </Description>
         </Wrapper>
+      ) : (
+        <NotFound text="No se encontro el producto que está buscando." />
       )}
     </React.Fragment>
   );
