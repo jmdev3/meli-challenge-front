@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { observer } from "mobx-react";
 import { AiFillCheckCircle } from "react-icons/ai";
-import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { IItemComponent } from "./Item.types";
@@ -36,11 +35,11 @@ const StyledIcon = styled(AiFillCheckCircle)`
 `;
 
 const ItemComponent: React.FC<IItemComponent> = (props) => {
-  const router = useRouter();
+  const navigateToItem = props.navigateToItem;
   const item = props.item;
 
   function handleItemClick() {
-    router.push(`/items/${item.id}`, undefined, { shallow: true });
+    navigateToItem(`/items/${item.id}`);
   }
 
   return (

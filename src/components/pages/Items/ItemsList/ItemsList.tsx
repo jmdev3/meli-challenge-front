@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { observer } from "mobx-react";
+import { useRouter } from "next/router";
 
 import { IItemsList } from "./ItemsList.types";
 import Item from "./Item";
@@ -15,10 +16,16 @@ const StyledUl = styled.ul`
 `;
 
 const ItemsList: React.FC<IItemsList> = (props) => {
+  const router = useRouter();
+
+  function navigateToItem(url: string) {
+    router.push(url, undefined, { shallow: true });
+  }
+
   return (
     <StyledUl>
       {props.items.map((item) => (
-        <Item item={item} key={item.id} />
+        <Item item={item} key={item.id} navigateToItem={navigateToItem} />
       ))}
     </StyledUl>
   );

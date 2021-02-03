@@ -1,16 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-// import { useRouter } from "next/router";
 
 import Item from "./Item";
 import { IItem } from "~/stores/mainStore";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-  }),
-}));
-
 describe("<Item />", () => {
+  const navigateToItem = jest.fn();
+
   it("should render Item as expected", () => {
     const mockedItem = {
       id: "item-id",
@@ -25,7 +20,7 @@ describe("<Item />", () => {
       free_shipping: true,
     } as IItem;
 
-    render(<Item item={mockedItem} />);
+    render(<Item item={mockedItem} navigateToItem={navigateToItem} />);
 
     expect(screen.getByAltText("item-img")).not.toBeNull();
     expect(screen.getByText("$ 1,000")).not.toBeNull();
@@ -48,7 +43,7 @@ describe("<Item />", () => {
       free_shipping: true,
     } as IItem;
 
-    render(<Item item={mockedItem} />);
+    render(<Item item={mockedItem} navigateToItem={navigateToItem} />);
 
     expect(screen.getByAltText("item-img")).not.toBeNull();
     expect(screen.getByText("U$D 1,000")).not.toBeNull();
@@ -71,7 +66,7 @@ describe("<Item />", () => {
       free_shipping: false,
     } as IItem;
 
-    render(<Item item={mockedItem} />);
+    render(<Item item={mockedItem} navigateToItem={navigateToItem} />);
 
     expect(screen.getByAltText("item-img")).not.toBeNull();
     expect(screen.getByText("U$D 1,000")).not.toBeNull();
@@ -94,13 +89,13 @@ describe("<Item />", () => {
       free_shipping: true,
     } as IItem;
 
-    const { container } = render(<Item item={mockedItem} />);
+    const { container } = render(
+      <Item item={mockedItem} navigateToItem={navigateToItem} />
+    );
     const li = container.querySelector("li");
 
     fireEvent.click(li);
-    // const router = useRouter();
 
-    // TODO: chequear porque no hace el assertion
-    // expect(router.push).toHaveBeenCalledTimes(1);
+    expect(navigateToItem).toHaveBeenCalledWith("/items/item-id");
   });
 });
