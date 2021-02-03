@@ -31,6 +31,10 @@ const StyledMain = styled.main`
   }
 `;
 
+/**
+ * Componente root, me permite tener header
+ * como store global en la App con React Context
+ */
 function MyApp({ Component, pageProps }) {
   const mainStore = useLocalStore(() =>
     MainStore.create({

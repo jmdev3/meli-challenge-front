@@ -9,6 +9,7 @@ import { useMainStore } from "~/stores/mainStore";
 import Item from "./Item";
 
 /**
+ * SWR (stale-while-revalidate)
  * https://github.com/vercel/swr#ssr-with-nextjs
  */
 const ConnectedItem: React.FC<any> = (props) => {

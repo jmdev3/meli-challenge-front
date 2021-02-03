@@ -7,6 +7,14 @@ import Api from "~/services/api";
 import { useMainStore } from "~/stores/mainStore";
 import Items from "./Items";
 
+/**
+ * SWR (stale-while-revalidate) es una estrategía que
+ * primero retorna la data de la cache
+ * luego realiza otra request (revalida)
+ * y al final, te devuelve la data actualizada
+ * https://swr.vercel.app/
+ * https://nextjs.org/docs/basic-features/data-fetching#swr
+ */
 const ConnectedItems: React.FC = () => {
   const router = useRouter();
   const { search } = router.query;
